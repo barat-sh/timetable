@@ -46,7 +46,7 @@ const days = [
 
 const Slots = () => {
     const [total, setTotal] = useState({});
-
+    const [cs, setCs] = useState([]);
 
     function generateTimetable() {
         const timetable = {};
@@ -76,19 +76,23 @@ const Slots = () => {
 
     useEffect(()=>{
         const result = generateTimetable();
-        setTotal(result);
+        setTotal(result.ComputerScience);
+        setCs(result.ComputerScience)
     }, [])
-    console.log(total)
-
-    const CS = total.ComputerScience;
+    console.log(cs)
 
     return (
         <div>
-            <ul>
-            {CS.monday.map((item, index) => (
-            <li key={index}>{item}</li>
+          {Object.keys(cs).map(day => (
+                <div key={day} className="day">
+                    <h2>{day.charAt(0).toUpperCase() + day.slice(1)}</h2>
+                    {cs[day].map((slot, index) => (
+                        <div key={index} className="slot">
+                            {slot}
+                        </div>
+                    ))}
+                </div>
             ))}
-        </ul>
         </div>
     )
 }
